@@ -62,7 +62,7 @@ The current robot is powered by an internal USB power bank. The Hall effect sens
 Chromaleont consists of three complementary parts:
 
 -   **Physical robot:** The tangible interface, with sensors, color-changing LEDs, and interactive elements.
--   **Embedded software:** C++ firmware using the Arduino framework, running on the Seeed Studio XIAO RP2040. It reads the FSR, LDR, and magnetic reed switch, manages robot states, and controls the LED strip using the Adafruit NeoPixel library. The firmware is located in [`Chromaleont_Firmware/`](./Chromaleont_Firmware/).
+-   **Embedded software:** C++ firmware using the Arduino framework, running on the Seeed Studio XIAO RP2040. It reads the FSR, LDR, and magnetic reed switch, manages robot states, and controls the LED strip using the Adafruit NeoPixel library. The firmware is located in [`firmware/arduino/`](./firmaware/arduino).
 -   **Web application:** A parent-facing interface for controlling the robot's color and configuring daily routines.
 
 Hardware--software integration is a planned next step. Bluetooth communication and execution of app-configured routines by the physical robot are not yet implemented.
@@ -71,11 +71,7 @@ Hardware--software integration is a planned next step. Bluetooth communication a
 
 ## 💻 Web Application
 
-The Chromaleont web application allows parents to configure interactions
-and create daily routines for their child. For example, a parent could
-schedule Chromaleont to express hunger at 12:30 PM, prompting the child
-to recognize the signal and feed the robot.
-
+The Chromaleont web application allows parents to configure interactions and create daily routines for their child. For example, a parent could schedule Chromaleont to express hunger at 12:30 PM, prompting the child to recognize the signal and feed the robot. 
 The current application runs with a simulated device connection.
 
 ### Live Control
@@ -92,24 +88,19 @@ The current application runs with a simulated device connection.
 -   Enable or disable individual routines or the full schedule.
 -   View routines on a daily timeline.
 
-Routines are saved in the application, but their execution by the
-physical robot is not yet implemented.
+Routines are saved in the application, but their execution by the physical robot is not yet implemented.
 
 ### Device Settings and Persistence
 
 -   Simulate connecting to and disconnecting from the robot.
--   View prototype device information, including model, firmware, and
-    battery status.
+-   View prototype device information, including model, firmware, and battery status.
 -   Persist settings and routines using browser `localStorage`.
 
-Device information and connection status are simulated. Preferences and
-routines are stored locally and are not synchronized across devices.
+Device information and connection status are simulated. Preferences and routines are stored locally and are not synchronized across devices.
 
 ### Progressive Web App
 
-The web application is a responsive React single-page application with
-Progressive Web App (PWA) configuration, designed for mobile and desktop
-screens.
+The web application is a responsive React single-page application with Progressive Web App (PWA) configuration, designed for mobile and desktop screens.
 
 ------------------------------------------------------------------------
 
