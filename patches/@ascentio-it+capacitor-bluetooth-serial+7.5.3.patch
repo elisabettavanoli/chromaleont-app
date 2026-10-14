@@ -1,0 +1,20 @@
+diff --git a/node_modules/@ascentio-it/capacitor-bluetooth-serial/android/src/main/java/com/bluetoothserial/BluetoothSerialService.java b/node_modules/@ascentio-it/capacitor-bluetooth-serial/android/src/main/java/com/bluetoothserial/BluetoothSerialService.java
+index e9a76b8..324b03f 100644
+--- a/node_modules/@ascentio-it/capacitor-bluetooth-serial/android/src/main/java/com/bluetoothserial/BluetoothSerialService.java
++++ b/node_modules/@ascentio-it/capacitor-bluetooth-serial/android/src/main/java/com/bluetoothserial/BluetoothSerialService.java
+@@ -303,6 +303,15 @@ public class BluetoothSerialService {
+                         // Read from the InputStream
+                         int length = socketInputStream.read(bytesBuffer);
+                         String data = new String(bytesBuffer, 0, length);
++
++                        StringBuilder hex = new StringBuilder();
++                        for (int i = 0; i < length; i++) {
++                            if (i > 0) hex.append(' ');
++                            hex.append(String.format("%02X", bytesBuffer[i] & 0xFF));
++                        }
++
++                        Log.i(TAG, "[BT RAW RX] HEX=" + hex + " TEXT=[" + data + "]");
++
+                         appendToBuffer(data);
+                     } catch (IOException e) {
+                         Log.e(TAG, "disconnected", e);

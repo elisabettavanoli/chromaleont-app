@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Chromaleont</string>
+    <string name="title_activity_main">Chromaleont</string>
+    <string name="package_name">com.chromaleont.app</string>
+    <string name="custom_url_scheme">com.chromaleont.app</string>
+</resources>
