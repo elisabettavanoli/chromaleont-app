@@ -21,10 +21,10 @@ Chromaleont uses color and physical interaction to express its needs. Each state
 
 | State | Color | Interaction | Sensor or mechanism |
 |---|---|---|---|
-| Cold | Blue 🔵 | Cover or warm the robot | Light sensor |
-| Sleepy | Purple 🟣 | Turn off the lights | Light sensor |
 | Hungry | Red 🔴| Feed the robot with a physical leaf | Magnetic sensor and e-textile leaf |
 | Playful | Green 🟢| Pet the horn and press the tail to make it move | Pressure sensor and inflatable tail |
+| Cold | Blue 🔵 | Cover or warm the robot | Light sensor |
+| Sleepy | Purple 🟣 | Turn off the lights | Light sensor |
 | Socialisation | Yellow 🟡 | Bring another Chromaleont close to the robot | Hall sensor and magnet |
 | Charging | Orange 🟠 | Recharge the robot | USB-C connection |
 
@@ -62,45 +62,47 @@ The current robot is powered by an internal USB power bank. The Hall effect sens
 Chromaleont consists of three complementary parts:
 
 -   **Physical robot:** The tangible interface, with sensors, color-changing LEDs, and interactive elements.
--   **Embedded software:** C++ firmware using the Arduino framework, running on the Seeed Studio XIAO RP2040. It reads the FSR, LDR, and magnetic reed switch, manages robot states, and controls the LED strip using the Adafruit NeoPixel library. The firmware is located in [`firmware/arduino/`](./firmaware/arduino).
--   **Web application:** A parent-facing interface for controlling the robot's color and configuring daily routines.
+-   **Embedded software:** C++ firmware using the Arduino framework, running on the Seeed Studio XIAO RP2040. It reads the FSR, LDR, and magnetic reed switch, manages robot states, and controls the LED strip using the Adafruit NeoPixel library. The firmware is located in [`firmware/arduino/Chromaleont_Firmware.ino`](./firmware/arduino/Chromaleont_Firmware.ino).
+-   **Application:** A parent-facing interface for controlling the robot's color and configuring daily routines. The frontend is built with React and TypeScript. Capacitor provides the native Android application environment, while a Bluetooth Serial plugin handles Bluetooth Classic communication.
 
-Hardware--software integration is a planned next step. Bluetooth communication and execution of app-configured routines by the physical robot are not yet implemented.
-
+> **Current integration status:** Android-to-robot Bluetooth communication is implemented, while automatic execution of app-configured routines by the physical robot is not yet integrated.
 ------------------------------------------------------------------------
 
-## 💻 Web Application
+## 💻 Application
 
-The Chromaleont web application allows parents to configure interactions and create daily routines for their child. For example, a parent could schedule Chromaleont to express hunger at 12:30 PM, prompting the child to recognize the signal and feed the robot. 
-The current application runs with a simulated device connection.
+The Chromaleont application allows parents to personalize their child's experience with the robot, control its behavior, and plan daily interactions. For example, a parent can configure a routine in which Chromaleont expresses hunger at 12:30 PM, encouraging the child to recognize the signal and feed the robot.
 
 ### Live Control
 
--   Turn the simulated robot on or off.
--   Select one of four colors representing its states.
--   Preview the selected color and state.
--   View simulated connection and synchronization status.
+The Live Control page allows parents to interact with Chromaleont in real time.
+
+- Turn the robot on or off.
+- Select and activate the available states: Cold, Hungry, and Playful.
+- View the selected state and its associated color.
+- Check whether the robot is connected and whether commands are being sent successfully.
 
 ### Daily Routines
 
--   Schedule a state/color at a chosen time.
--   Create, edit, and delete routines.
--   Enable or disable individual routines or the full schedule.
--   View routines on a daily timeline.
+The Daily Routines section allows parents to plan interactions throughout the day, helping integrate Chromaleont into the child's daily activities.
 
-Routines are saved in the application, but their execution by the physical robot is not yet implemented.
+- Schedule a state or color for a specific time.
+- Create, edit, and delete routines.
+- Enable or disable individual routines or the entire schedule.
+- View scheduled interactions on a daily timeline.
 
-### Device Settings and Persistence
+Routines are saved in the application. However, their automatic execution by the physical robot is not yet available.
 
--   Simulate connecting to and disconnecting from the robot.
--   View prototype device information, including model, firmware, and battery status.
--   Persist settings and routines using browser `localStorage`.
+### Device Settings
 
-Device information and connection status are simulated. Preferences and routines are stored locally and are not synchronized across devices.
+The Device Settings section allows parents to manage the connection between the application and Chromaleont.
 
-### Progressive Web App
+- Find available paired devices.
+- Connect to or disconnect from the robot.
+- Check the connection status.
+- Test whether the application can communicate with the robot.
+- View diagnostic information to help identify connection problems.
 
-The web application is a responsive React single-page application with Progressive Web App (PWA) configuration, designed for mobile and desktop screens.
+The physical robot can currently be controlled through the Android application. Bluetooth-based control is not available through the standard web or PWA version.
 
 ------------------------------------------------------------------------
 
@@ -108,34 +110,37 @@ The web application is a responsive React single-page application with Progressi
 
 ### Web Application
 
--   **React** --- UI components and application state
--   **TypeScript** --- Type-safe development
--   **Vite** --- Development server and production builds
--   **React Router** --- Client-side navigation
--   **Vitest** --- Automated testing
--   **React Testing Library** --- Component and interaction testing
--   **vite-plugin-pwa** --- PWA configuration
--   **CSS** --- Responsive styling and animations
+- **React** — UI components and application state
+- **TypeScript** — Type-safe development
+- **Vite** — Development server and production builds
+- **React Router** — Client-side navigation
+- **Vitest** — Automated testing
+- **React Testing Library** — Component and interaction testing
+- **vite-plugin-pwa** — PWA configuration
+- **CSS** — Responsive styling and animations
+- **Capacitor** — Native Android application integration
+- **Bluetooth Serial plugin** — Communication with the physical robot from Android
 
 ### Embedded Software
 
--   **C++ / Arduino framework** --- Firmware
--   **Seeed Studio XIAO RP2040** --- Microcontroller
--   **Adafruit NeoPixel** --- Addressable LED control
+- **C++ / Arduino framework** — Firmware development
+- **Seeed Studio XIAO RP2040** — Microcontroller
+- **Adafruit NeoPixel** — Addressable LED control
 
 ------------------------------------------------------------------------
 
 ## 🚀 Getting Started
 
-These instructions apply to the web application in this repository.
+These instructions explain how to set up and run the web application locally. For Bluetooth control of the physical robot, use the native Android application.
 
 ### Prerequisites
 
-Install [Node.js](https://nodejs.org/) and npm.
+- [Node.js](https://nodejs.org/) and npm
+- Android Studio and a compatible Android device (for Android development and Bluetooth testing)
 
 ### Installation
 
-``` bash
+```bash
 git clone https://github.com/elisabettavanoli/chromaleont-app.git
 cd chromaleont-app
 npm install
@@ -143,11 +148,39 @@ npm install
 
 ### Run Locally
 
-``` bash
+Start the development server:
+
+```bash
 npm run dev
 ```
 
-Open the local URL shown in the terminal.
+Open the local URL shown in the terminal to access the application in your browser.
+
+### Build the Web Application
+
+To generate the production build, run:
+
+```bash
+npm run build
+```
+
+### Run on Android
+
+The repository includes a Capacitor Android project. After installing the dependencies, synchronize the web application with the Android project:
+
+```bash
+npx cap sync android
+```
+
+Then open the project in Android Studio:
+
+```bash
+npx cap open android
+```
+
+Build and run the application on a compatible Android device using Android Studio.
+
+To test Bluetooth communication, ensure that the robot is powered on and paired with the Android device through the device's Bluetooth settings.
 
 ------------------------------------------------------------------------
 
